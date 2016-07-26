@@ -30,8 +30,8 @@ http.createServer((req, res) => {
   }
 
   if (stats.isFile()) {
-    let mimeType = mimeTypes[path.extname(fileName)];
-    res.writeHead(200, {'Content-type': mimeTypes});
+    let mimeType = mimeTypes[path.extname(fileName).split('.').reverse()[0]];
+    res.writeHead(200, {'Content-type': mimeType});
     let fileStream = fs.createReadStream(fileName);
     fileStream.pipe(res);
   } else if (stats.isDirectory()) {
