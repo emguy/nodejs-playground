@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "babel-node --presets es2015 ./server.js",
+    "start": "babel-node --presets es2015 ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Yu Zhang",
