@@ -2,8 +2,8 @@ doctype html
 html(lang='en')
   head
     title Welcome
-    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href='/stylesheets/bootstrap.css', rel='stylesheet')
+    link(href='/stylesheets/style.css', rel='stylesheet')
   body
     .navbar.navbar-default(role='navigation')
       .container
@@ -13,18 +13,20 @@ html(lang='en')
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='#') Project name
+          a.navbar-brand(href='#') NodeAuth
         .navbar-collapse.collapse
           ul.nav.navbar-nav
-            li
-              a(href='/') Home
-            li
-              a(href='#') Link
-            li
-              a(href='#') Link
+            li(class=(title == 'Members' ? 'active' : ''))
+              a(href='/') Members
+            li(class=(title == 'Register' ? 'active' : ''))
+              a(href='/users/register') Register
+            li(class=(title == 'Login' ? 'active' : ''))
+              a(href='/users/login') Login
+          ul.nav.navbar-nav.navbar-right
+           li
+              a(href='/users/logout') Logout
     .container
-    block content
-
-    script(src='https://ajax.googleapis.com/ajax/libs/jquery1.11.1/jquery.min.js/')
-    script(src='javascripts/bootstrap.js')
-
+     block content
+     
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    script(src='/javascripts/bootstrap.min.js')
