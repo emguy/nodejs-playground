@@ -64,6 +64,8 @@ router.post('/register', upload.single('profileimage'),  (req, res, next) => {
     console.log(user);
   });
 
+  req.flash('sucess', 'You are now a registered user.');
+
   res.location('/');
   res.redirect('/');
 });
