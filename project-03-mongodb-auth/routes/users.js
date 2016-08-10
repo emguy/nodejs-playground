@@ -20,11 +20,6 @@ router.get('/login', (req, res, next) => {
 });
 
 router.post('/register', upload.single('profileimage'),  (req, res, next) => {
-  //let name = req.body.name;
-  //let email = req.body.email;
-  //let username = req.body.username;
-  //let password = req.body.password;
-  //let password2 = req.body.password2;
   let profileimage = 'noimage.jpg';
 
   if(req.file) {
