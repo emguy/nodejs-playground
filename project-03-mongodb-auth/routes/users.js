@@ -1,7 +1,9 @@
+import User from '../models/users';
 import express from 'express';
 import multer from 'multer';
-import User from '../models/users';
-import { createUser } from '../models/users';
+import passport from 'passport';
+import { createUser, comparePassword, getUserByUsername, getUserById } from '../models/users';
+import { Strategy as LocalStrategy } from 'passport-local';
 
 let upload = multer({ dest: './uploads' });
 
@@ -18,6 +20,44 @@ router.get('/register', (req, res, next) => {
 router.get('/login', (req, res, next) => {
   res.render('login', {title: 'Login'});
 });
+
+router.post('/login', 
+  passport.authenticate('local', {failureRedirect:'/users/login', failureFlash: 'Invalid username or password'}), 
+  (req, res) => {
+    req.flash('sucess', 'You are now logged in');
+    req.redirect('/');
+  }
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+});
+
+passport.deserializeUser((id, done) => {
+  getUserById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy((username, password, done) => {
+  getUserByUsername(username, (err, user) => {
+    if (err) throw err;
+    if (!user) {
+      return done(null, false, {message: 'Unkown User'});
+    }
+
+    console.log(user);
+
+    comparePassword(password, user.password, (err, isMatch) => {
+      if (err) throw err;
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false, {message: 'Invalid Password.'});
+      }
+    });
+  });
+}));
 
 router.post('/register', upload.single('profileimage'),  (req, res, next) => {
   let profileimage = 'noimage.jpg';

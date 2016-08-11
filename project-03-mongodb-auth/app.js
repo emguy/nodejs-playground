@@ -14,7 +14,6 @@ import path from 'path';
 import routes from './routes/index';
 import session from 'express-session';
 import users from './routes/users';
-import { localStrategy } from 'passport-local';
 
 let db = mongoose.connection;
 let app = express();

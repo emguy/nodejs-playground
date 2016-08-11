@@ -35,4 +35,22 @@ let createUser = function(newUser, callback) {
   });
 }
 
-export { User as default, createUser };
+let getUserById = function(id, callback) {
+  console.log('---------');
+  User.findById(id, callback);
+}
+
+let getUserByUsername= function(username, callback) {
+  console.log('---------');
+  let query = {username: username};
+  User.findOne(query, callback);
+}
+
+let comparePassword = function(candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+    callback(null, isMatch);
+  });
+}
+
+export { User as default, createUser, getUserByUsername, getUserById, comparePassword };
+
