@@ -29,20 +29,21 @@ router.post('/login',
   }
 );
 
-passport.serializeUser((user, done) => {
-  done(null, user.id)
-});
-
-passport.deserializeUser((id, done) => {
-  getUserById(id, (err, user) => {
-    done(err, user);
-  });
-});
+//passport.serializeUser((user, done) => {
+//  done(null, user.id)
+//});
+//
+//passport.deserializeUser((id, done) => {
+//  getUserById(id, (err, user) => {
+//    done(err, user);
+//  });
+//});
 
 passport.use(new LocalStrategy((username, password, done) => {
   getUserByUsername(username, (err, user) => {
     if (err) throw err;
     if (!user) {
+      console.log('Unkown User');
       return done(null, false, {message: 'Unkown User'});
     }
 
@@ -51,8 +52,10 @@ passport.use(new LocalStrategy((username, password, done) => {
     comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
+      console.log('Match');
         return done(null, user);
       } else {
+      console.log('Invalid password');
         return done(null, false, {message: 'Invalid Password.'});
       }
     });

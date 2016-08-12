@@ -7,15 +7,12 @@ import expressValidator from 'express-validator';
 import favicon from 'serve-favicon';
 import flash from 'connect-flash';
 import logger from 'morgan';
-import mongo from 'mongodb';
-import mongoose from 'mongoose';
 import passport from 'passport';
 import path from 'path';
 import routes from './routes/index';
 import session from 'express-session';
 import users from './routes/users';
 
-let db = mongoose.connection;
 let app = express();
 
 /* tell express about the view engine */
