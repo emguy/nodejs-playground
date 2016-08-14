@@ -24,7 +24,7 @@ let UserSchema = mongoose.Schema({
   }
 });
 
-let User = mongoose.model('users', UserSchema);
+let User = mongoose.model('user', UserSchema);
 
 let createUser = function(newUser, callback) {
   bcrypt.genSalt(10, (err, salt) => {
@@ -39,7 +39,7 @@ let getUserById = function(id, callback) {
   User.findById(id, callback);
 }
 
-let getUserByUsername= function(username, callback) {
+let getUserByUsername = function(username, callback) {
   let query = {username: username};
   User.findOne(query, callback);
 }
@@ -51,5 +51,4 @@ let comparePassword = function(candidatePassword, hash, callback) {
 }
 
 export { User as default, createUser, getUserByUsername, getUserById, comparePassword };
-
 

@@ -29,15 +29,15 @@ router.post('/login',
   }
 );
 
-//passport.serializeUser((user, done) => {
-//  done(null, user.id)
-//});
-//
-//passport.deserializeUser((id, done) => {
-//  getUserById(id, (err, user) => {
-//    done(err, user);
-//  });
-//});
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+});
+
+passport.deserializeUser((id, done) => {
+  getUserById(id, (err, user) => {
+    done(err, user);
+  });
+});
 
 passport.use(new LocalStrategy((username, password, done) => {
   getUserByUsername(username, (err, user) => {
@@ -93,6 +93,7 @@ router.post('/register', upload.single('profileimage'),  (req, res, next) => {
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
+    username: req.body.username,
     password: req.body.password,
     profileimage: profileimage
   });
