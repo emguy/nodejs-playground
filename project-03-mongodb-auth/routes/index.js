@@ -2,7 +2,14 @@ import express from 'express';
 
 let router = express.Router();
 
-router.get('/', (req, res, next) => {
+let ensureAuthenticated = function(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/users/login');
+};
+
+router.get('/', esureAuthenticated, (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 
